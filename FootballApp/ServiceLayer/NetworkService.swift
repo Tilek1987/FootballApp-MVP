@@ -50,10 +50,10 @@ class NetworkService: NetworkServiceProtocol {
                 return
             }
             
-            let responseObject = try? JSONDecoder().decode(T.self, from: data)
+            guard let responseObject = try? JSONDecoder().decode(T.self, from: data) else { return }
             
             DispatchQueue.main.async {
-                completion(.success(responseObject!))
+                completion(.success(responseObject))
             }
         }
         dataTask?.resume()
